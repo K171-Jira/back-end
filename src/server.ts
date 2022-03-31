@@ -1,5 +1,5 @@
 import express from 'express'
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 import cors from 'cors'
 import dotenv from 'dotenv'
 
@@ -25,3 +25,18 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.info(`server has started on ${PORT}`));
+
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String,
+    isAdmin: Boolean
+});
+const User = mongoose.model('User', userSchema);
+
+app.post('/api/register', async (req, res) => {
+    const { email, password } = req.body;
+    const user = new User({ email, password, isAdmin:false });
+    await user.save((err: any) => {
+        err ? res.status(500).send(err) : res.status(200).send('user registered');
+    });
+});
