@@ -28,7 +28,3 @@ app.use('/users', usersRoute);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.info(`server has started on ${PORT}`));
-
-app.post("/welcome", auth, (req, res) => {
-    res.status(200).send("Welcome 🙌");
-});
