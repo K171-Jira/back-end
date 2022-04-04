@@ -1,5 +1,7 @@
+const auth = require("./middleware/auth");
+import usersRoute from './auth/routes/users';
 import express from 'express'
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 import cors from 'cors'
 import dotenv from 'dotenv'
 
@@ -22,6 +24,7 @@ mongoose.connect(
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/users', usersRoute);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.info(`server has started on ${PORT}`));
