@@ -130,3 +130,10 @@ dist
 
 #mongodb data
 mongo
+
+#idea generated files
+/.idea/.gitignore
+/.idea/back-end.iml
+/.idea/modules.xml
+/.idea/prettier.xml
+/.idea/vcs.xml
