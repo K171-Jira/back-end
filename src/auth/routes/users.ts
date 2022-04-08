@@ -7,6 +7,8 @@ import jwt from "jsonwebtoken";
 router.post('/register', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
 
     if (!(email && password)) {
         res.status(400).send("All input is required");
@@ -18,7 +20,7 @@ router.post('/register', async (req, res) => {
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: encryptedPassword, role: 'user' });
+    const user = new User({ email, password: encryptedPassword, firstName, lastName, role: 'user' });
 
     const savedUser = await user.save((err: any) => {
         if(err) res.status(500).send(err)
