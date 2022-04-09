@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
 
     const oldUser = await User.findOne({ email });
     if (oldUser) {
-        return res.status(409).send("User Already Exists. Please Login");
+        return res.status(409).send({ message: "Toks elektroninio pašto adresas jau egzistuoja" });
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
