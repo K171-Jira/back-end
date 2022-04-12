@@ -75,4 +75,22 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try{
+        const user = await User.findById(req.params.id);
+        res.status(200).send(user);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        res.status(200).send(updatedUser);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 export default router;
