@@ -22,7 +22,13 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const mask = new Mask({ name: req.body.name, brand: req.body.brand, amount: req.body.amount, type: req.body.type });
+    const mask = new Mask({
+      name: req.body.name,
+      brand: req.body.brand,
+      amount: req.body.amount,
+      type: req.body.type,
+      price: req.body.price,
+    });
     await mask.save();
     res.status(200).send(mask);
   } catch (err) {
