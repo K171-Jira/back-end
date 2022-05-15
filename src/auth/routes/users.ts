@@ -75,4 +75,53 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try{
+        const user = await User.findById(req.params.id);
+        res.status(200).send(user);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        res.status(200).send(updatedUser);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
+router.put('/changePassword/:id', async (req, res) => {
+    const { password, newPassword } = req.body;
+    
+    if (!(password && newPassword)) {   
+        res.status(400).send("All input is required");
+    }
+
+    try{
+        const user = await User.findById(req.params.id);
+        const isValidPassword = await bcrypt.compare(password, user?.password);
+        if (user && isValidPassword) {
+            const encryptedPassword = await bcrypt.hash(newPassword, 10);
+            user.password = encryptedPassword;
+            const savedUser = await user.save();
+            res.status(200).send(savedUser);
+        }
+        else{
+            res.status(401).send("Invalid Credentials");
+        }
+    }
+    catch {
+        res.status(500).send("Internal Server Error");
+    }
+
+    
+});
+
+
 export default router;
+
+
