@@ -4,7 +4,8 @@ const Mask = require('../models/mask');
 
 router.get('/', async (req, res) => {
   try {
-    const masks = await Mask.find();
+    const test = req.query.textQuery;
+    const masks = await Mask.find(test ? { name: test } : {});
     res.status(200).send(masks);
   } catch (err) {
     res.status(500).send(err);
@@ -19,6 +20,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).send(err);
   }
 });
+
 
 router.post('/', async (req, res) => {
   try {
