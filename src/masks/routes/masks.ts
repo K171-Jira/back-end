@@ -2,15 +2,37 @@ import express from 'express';
 const router = express.Router();
 const Mask = require('../models/mask');
 
+
 router.get('/', async (req, res) => {
   try {
-    const test = req.query.textQuery;
-    const masks = await Mask.find(test ? { name: test } : {});
+    const name = req.query.textQuery;
+    const brand = req.query.brand;
+    const amount = req.query.amount;
+    const priceFloor = req.query.priceFloor;
+    const priceCeiling = req.query.priceCeiling;
+    const type = req.query.type;
+    
+    const masks = await Mask.find(
+      {
+        $and: [
+          priceFloor ? { price: { $gte: priceFloor } } : {},
+          priceCeiling ? { price: { $lte: priceCeiling } } : {},
+          amount ? { amount: {$gte: amount} } : {},
+          name ? { name: { $regex: name, $options: 'i' } } : {},
+          brand ? { brand: { $regex: brand, $options: 'i' } } : {},
+          type ? { type: { $regex: type, $options: 'i' } } : {}
+        ]
+      }
+    );
+
+    
+    
     res.status(200).send(masks);
   } catch (err) {
     res.status(500).send(err);
   }
 });
+
 
 router.get('/:id', async (req, res) => {
   try {
