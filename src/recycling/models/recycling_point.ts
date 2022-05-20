@@ -4,15 +4,17 @@ interface IRecyclingPoint {
   lat: number;
   lng: number;
   address: string;
+  deviceId: string;
   maxCapacity: number;
   filledCapacity: number;
 }
 
 const RecyclingPointSchema = new Schema<IRecyclingPoint>(
   {
-    lat: { type: Number, required: true },
-    lng: { type: Number, required: true },
-    address: { type: String, required: true },
+    lat: { type: Number },
+    lng: { type: Number },
+    address: { type: String },
+    deviceId: { type: String },
     maxCapacity: { type: Number, default: 1500 },
     filledCapacity: { type: Number, default: 0 },
   },
