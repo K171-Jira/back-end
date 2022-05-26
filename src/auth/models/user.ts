@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+	stripe_id:{
+        type: String,
+        default: null,
+    },
     role: {
         type: String,
         required: true,
