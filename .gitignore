@@ -137,3 +137,6 @@ mongo
 /.idea/modules.xml
 /.idea/prettier.xml
 /.idea/vcs.xml
+
+#image uploads
+uploads
