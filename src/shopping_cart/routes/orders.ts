@@ -20,7 +20,7 @@ router.post('/placeOrder', async (req, res) => {
       orderItems: {
         maskId: req.body.maskId,
         amount: req.body.amount,
-        price: req.body.address.price,
+        price: req.body.price,
       },
     });
     await order.save();
