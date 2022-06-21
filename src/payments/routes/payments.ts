@@ -9,9 +9,7 @@ router.post('/', async (req, res) => {
 	let customer: any;
 	const user = await User.findById(_id);
 	let amount = selectedAmount*100;
-	console.log('SUMA   ',req.body)
 	try {
-		console.log(user.stripe_id + "AAAAAA");
 		if(!user.stripe_id){
 			
 			const customer = await stripe.customers.create({
