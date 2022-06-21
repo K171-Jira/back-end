@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
 	let { id, _id, balance, selectedAmount } = req.body
 	let customer: any;
 	const user = await User.findById(_id);
-	let amount = selectedAmount*100;
+	let amount = selectedAmount*10;
 	try {
 		if(!user.stripe_id){
 			
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 			setup_future_usage: "on_session",
 			confirm: true
 		})
-		var newBalance= balance+Math.trunc((amount/100));
+		var newBalance= balance+Math.trunc((amount/10));
 		user.balance=newBalance;
 		const savedUser = await user.save();
 		console.log("Payment", payment)
