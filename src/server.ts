@@ -8,7 +8,6 @@ dotenv.config();
 const auth = require('./middleware/auth');
 const masksRoute = require('./masks/routes/masks');
 const paymentsRoute = require('./payments/routes/payments');
-import ordersRoute from './shopping_cart/routes/orders';
 import usersRoute from './auth/routes/users';
 import pointsRoute from './recycling/routes/recycling_points';
 
@@ -35,7 +34,6 @@ app.use('/masks', masksRoute);
 app.use('/users', usersRoute);
 app.use('/points', pointsRoute);
 app.use('/payments', paymentsRoute);
-app.use('/orders', ordersRoute);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.info(`server has started on ${PORT}`));
