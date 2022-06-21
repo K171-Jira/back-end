@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.log("Error", error)
 		res.json({
-			message: "Payment failed",
+			message: error.message,
 			success: false
 		})
 	}
