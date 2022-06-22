@@ -17,12 +17,9 @@ router.post('/placeOrder', async (req, res) => {
   try {
     const order = new Order({
       userId: req.body.userId,
-      orderItems: {
-        maskId: req.body.maskId,
-        amount: req.body.amount,
-        price: req.body.price,
-      },
+      orderItems: req.body.items,
     });
+    console.log(order);
     await order.save();
     res.status(200).send(order);
   } catch (err) {
